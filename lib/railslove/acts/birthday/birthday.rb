@@ -40,6 +40,31 @@ module Railslove
             self.send(scope_method, :"#{field.to_s}_today", lambda{ self.send(:"find_#{field.to_s.pluralize}_for", Date.today) })
 
             class_eval %{
+              def #{field}_age_on(date)
+                return nil unless self.#{field}?
+                today = date.to_date
+                age = today.year - #{field}.year
+                age -= 1 if today.month < #{field}.month || (today.month == #{field}.month && today.mday < #{field}.mday)
+                age
+              end
+
+              def #{field}_age_will_be
+                return nil unless self.#{field}?
+
+								now  = DateTime.now
+								year = now.year
+
+								if self.#{field}.month < now.year || (now.month == #{field}month && now.mday < #{field}.mday)
+									year = year + 1
+								end
+					
+                today = Date.new(year, self.#{field}.month, self.#{field}.mday)
+
+                age = today.year - #{field}.year
+                age -= 1 if today.month < #{field}.month || (today.month == #{field}.month && today.mday < #{field}.mday)
+                age
+              end
+
               def #{field}_age
                 return nil unless self.#{field}?
                 today = Date.today
