@@ -7,3 +7,4 @@ pkg/*
 spec/debug.log
 .idea/*
 .project
+.ruby-version
