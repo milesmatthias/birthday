@@ -54,7 +54,7 @@ module Railslove
 								now  = DateTime.now
 								year = now.year
 
-								if self.#{field}.month < now.year || (now.month == #{field}month && now.mday < #{field}.mday)
+								if self.#{field}.month < now.month || (now.month == #{field}.month && now.mday > #{field}.mday)
 									year = year + 1
 								end
 					
